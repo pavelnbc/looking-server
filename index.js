@@ -19,25 +19,26 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
-// const access = [
-//     'http://localhost:3000'
-// ];
+const access = [
+    'http://localhost:3000',
+    'http://looking-server.herokuapp.com/'
+];
 
-// const corsOptions = {
-//     origin: function (origin, callback) {
-//         if (access.indexOf(origin) !== -1) {
-//             callback(null, true)
-//         } else {
-//             callback(new Error('Not allowed by CORS'))
-//         }
-//     }
-// };
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (access.indexOf(origin) !== -1) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+};
 
-app.get("/api/v1/desires", (req, res) => {
+app.get("/api/v1/desires", cors(corsOptions), (req, res) => {
     res.send(desires);
 });
 
-app.post('/api/v1/desires', (req, res) => {
+app.post('/api/v1/desires', cors(corsOptions), (req, res) => {
     let desire = {
         title: req.body.title,
         isCompleted: false,
@@ -60,7 +61,7 @@ app.post('/api/v1/desires', (req, res) => {
     res.send(desire)
 });
 
-app.put('/api/v1/complete-desire/:id', (req, res) => {
+app.put('/api/v1/complete-desire/:id', cors(corsOptions), (req, res) => {
    desires = desires.filter((desire) => {
        if(desire.id === req.params.id) {
            desire[req.body.param1] = !desire[req.body.param1];
@@ -72,7 +73,7 @@ app.put('/api/v1/complete-desire/:id', (req, res) => {
    res.send(req.params.id)
 });
 
-app.put('/api/v1/edit-desire/:id', (req, res) => {
+app.put('/api/v1/edit-desire/:id', cors(corsOptions), (req, res) => {
     desires = desires.filter((desire) => {
         if(desire.id === +req.params.id) {
             desire.title = req.body.title;
@@ -89,7 +90,7 @@ app.put('/api/v1/edit-desire/:id', (req, res) => {
     res.send(data)
 });
 
-app.put('/api/v1/open-edit-form/:id', (req, res) => {
+app.put('/api/v1/open-edit-form/:id', cors(corsOptions), (req, res) => {
     desires = desires.filter((desire) => {
         if(desire.id === req.params.id) {
             desire[req.body.param1] = true;
@@ -103,7 +104,7 @@ app.put('/api/v1/open-edit-form/:id', (req, res) => {
     res.send(req.params.id)
 });
 
-app.put('/api/v1/open-description-field/:id', (req, res) => {
+app.put('/api/v1/open-description-field/:id', cors(corsOptions), (req, res) => {
     desires = desires.filter((desire) => {
         if(desire.id === req.params.id) {
             desire[req.body.param1] = !desire[req.body.param1];
@@ -116,7 +117,7 @@ app.put('/api/v1/open-description-field/:id', (req, res) => {
     res.send(req.params.id)
 });
 
-app.post('/api/v1/add-comment/:id', (req, res) => {
+app.post('/api/v1/add-comment/:id', cors(corsOptions), (req, res) => {
     desires = desires.filter((desire) => {
         if(desire.id === +req.params.id) {
             desire.comments.push(req.body.comment)
@@ -132,7 +133,7 @@ app.post('/api/v1/add-comment/:id', (req, res) => {
     res.send(data)
 });
 
-app.delete('/api/v1/delete-desire/:id', (req, res) => {
+app.delete('/api/v1/delete-desire/:id', cors(corsOptions), (req, res) => {
     const index = desires.findIndex((desire) => {
         return desire.id == req.params.id
     });

@@ -21,7 +21,7 @@ app.use(cors());
 
 const access = [
     'http://localhost:3000',
-    'https://pavelnbc.github.io//',
+    'http://pavelnbc.github.io/',
     'https://pavelnbc.github.io/'
 ];
 

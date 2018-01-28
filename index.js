@@ -21,7 +21,8 @@ app.use(cors());
 
 const access = [
     'http://localhost:3000',
-    'http://looking-server.herokuapp.com/'
+    'https://pavelnbc.github.io//',
+    'https://pavelnbc.github.io/'
 ];
 
 const corsOptions = {

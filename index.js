@@ -116,6 +116,9 @@ app.put('/api/v1/open-description-field/:id', (req, res) => {
         } else {
             desire[req.body.param1] = false;
         }
+
+        desire[req.body.param2] = false;
+
         return desire
     });
 

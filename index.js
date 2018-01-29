@@ -70,7 +70,9 @@ app.put('/api/v1/complete-desire/:id', (req, res) => {
        }
        return desire
    });
-    
+
+   console.log(desires);
+
    res.send(req.params.id)
 });
 

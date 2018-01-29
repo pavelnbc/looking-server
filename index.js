@@ -64,7 +64,7 @@ app.post('/api/v1/desires', (req, res) => {
 
 app.put('/api/v1/complete-desire/:id', (req, res) => {
    desires = desires.filter((desire) => {
-       if(desire.id === req.params.id) {
+       if(desire.id === +req.params.id) {
 
            console.log(desire[req.body.param1]);
 
@@ -74,7 +74,7 @@ app.put('/api/v1/complete-desire/:id', (req, res) => {
        return desire
    });
 
-   console.log(desires);
+   // console.log(desires);
 
    res.send(req.params.id)
 });

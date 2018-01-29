@@ -36,6 +36,11 @@ const corsOptions = {
 };*/
 
 app.get("/api/v1/desires", (req, res) => {
+    desires = desires.forEach((desire) => {
+       desire.isEditing = false;
+       desire.isDescriptionOpen = false
+    });
+
     res.send(desires);
 });
 
@@ -65,13 +70,11 @@ app.post('/api/v1/desires', (req, res) => {
 app.put('/api/v1/complete-desire/:id', (req, res) => {
    desires = desires.filter((desire) => {
        if(desire.id === +req.params.id) {
-           desire[req.body.param1] = !desire[req.body.param1];
-           desire[req.body.param2] = false;
+           desire.isCompleted = !desire.isCompleted;
+           desire.isDescriptionOpen = false;
        }
        return desire
    });
-
-   // console.log(desires);
 
    res.send(req.params.id)
 });
@@ -80,7 +83,7 @@ app.put('/api/v1/edit-desire/:id', (req, res) => {
     desires = desires.filter((desire) => {
         if(desire.id === +req.params.id) {
             desire.title = req.body.title;
-            desire[req.params.param1] = false;
+            desire.isEditing = false;
         }
         return desire
     });
@@ -95,13 +98,12 @@ app.put('/api/v1/edit-desire/:id', (req, res) => {
 
 app.put('/api/v1/open-edit-form/:id', (req, res) => {
     desires = desires.filter((desire) => {
-        if(desire.id === req.params.id) {
-            console.log('hello');
+        if(desire.id === +req.params.id) {
 
-            desire[req.body.param1] = true;
-            desire[req.body.param2] = false;
+            desire.isEditing = true;
+            desire.isDescriptionOpen = false;
         } else {
-            desire[req.body.param1] = false;
+            desire.isEditing = false;
         }
         return desire
     });
@@ -112,12 +114,12 @@ app.put('/api/v1/open-edit-form/:id', (req, res) => {
 app.put('/api/v1/open-description-field/:id', (req, res) => {
     desires = desires.filter((desire) => {
         if(desire.id === +req.params.id) {
-            desire[req.body.param1] = !desire[req.body.param1];
+            desire.isDescriptionOpen = !desire.isDescriptionOpen;
         } else {
-            desire[req.body.param1] = false;
+            desire.isDescriptionOpen = false;
         }
 
-        desire[req.body.param2] = false;
+        desire.isEditing = false;
 
         return desire
     });

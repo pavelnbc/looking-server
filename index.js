@@ -65,9 +65,6 @@ app.post('/api/v1/desires', (req, res) => {
 app.put('/api/v1/complete-desire/:id', (req, res) => {
    desires = desires.filter((desire) => {
        if(desire.id === +req.params.id) {
-
-           console.log(desire[req.body.param1]);
-
            desire[req.body.param1] = !desire[req.body.param1];
            desire[req.body.param2] = false;
        }
@@ -99,6 +96,8 @@ app.put('/api/v1/edit-desire/:id', (req, res) => {
 app.put('/api/v1/open-edit-form/:id', (req, res) => {
     desires = desires.filter((desire) => {
         if(desire.id === req.params.id) {
+            console.log('hello');
+
             desire[req.body.param1] = true;
             desire[req.body.param2] = false;
         } else {
@@ -112,7 +111,7 @@ app.put('/api/v1/open-edit-form/:id', (req, res) => {
 
 app.put('/api/v1/open-description-field/:id', (req, res) => {
     desires = desires.filter((desire) => {
-        if(desire.id === req.params.id) {
+        if(desire.id === +req.params.id) {
             desire[req.body.param1] = !desire[req.body.param1];
         } else {
             desire[req.body.param1] = false;
@@ -141,7 +140,7 @@ app.post('/api/v1/add-comment/:id', (req, res) => {
 
 app.delete('/api/v1/delete-desire/:id', (req, res) => {
     const index = desires.findIndex((desire) => {
-        return desire.id == req.params.id
+        return desire.id === +req.params.id
     });
 
     if (index === -1) return res.sendStatus(404);

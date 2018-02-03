@@ -36,10 +36,10 @@ const corsOptions = {
 };*/
 
 app.get("/api/v1/desires", (req, res) => {
-    desires.forEach((desire) => {
-        desire.isEditing = false;
-        desire.isDescriptionOpen = false;
-    });
+    // desires.forEach((desire) => {
+    //     desire.isEditing = false;
+    //     desire.isDescriptionOpen = false;
+    // });
 
     res.send(desires);
 });

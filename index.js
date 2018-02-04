@@ -162,14 +162,14 @@ app.delete('/api/v1/delete-desire/:id', (req, res) => {
 });
 
 app.delete('/api/v1/delete-comment/:id', (req, res) => {
-    console.log(req.body.commentId);
+    console.log(req.params.commentId);
     desires = desires.filter((desire) => {
         if(desire.id === +req.params.id) {
             console.log('yes');
             desire.comments = desire.comments.filter((comment) => {
                 console.log(comment.id);
 
-                return comment.id !== +req.body.commentId
+                return comment.id !== +req.params.commentId
             })
         }
 

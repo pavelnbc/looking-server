@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 
 let desires = require('./api/desires.json');
 let id = desires.length;
+let commentId = desires.length;
 
 const app = express();
 
@@ -128,16 +129,21 @@ app.put('/api/v1/open-description-field/:id', (req, res) => {
 });
 
 app.post('/api/v1/add-comment/:id', (req, res) => {
+    let comment = {
+        title: req.body.comment,
+        id: commentId++
+    };
+
     desires = desires.filter((desire) => {
         if(desire.id === +req.params.id) {
-            desire.comments.push(req.body.comment)
+            desire.comments.push(comment)
         }
         return desire
     });
 
     let data = {
         id: +req.params.id,
-        comment: req.body.comment
+        comment: comment
     };
 
     res.send(data)

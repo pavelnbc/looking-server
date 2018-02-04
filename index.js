@@ -172,6 +172,8 @@ app.delete('/api/v1/delete-comment/:id', (req, res) => {
         return desire
     });
 
+    console.log(desires);
+
     res.sendStatus(204)
 });
 

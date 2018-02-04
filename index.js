@@ -164,7 +164,7 @@ app.delete('/api/v1/delete-desire/:id', (req, res) => {
 app.delete('/api/v1/delete-comment/:id', (req, res) => {
     desires = desires.filter((desire) => {
         if(desire.id === req.params.id) {
-            desire.comments.filter((comment) => {
+            desire.comments = desire.comments.filter((comment) => {
                 return comment.id !== req.body.commentId
             })
         }

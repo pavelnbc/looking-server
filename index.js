@@ -162,21 +162,15 @@ app.delete('/api/v1/delete-desire/:id', (req, res) => {
 });
 
 app.delete('/api/v1/delete-comment/:id/:commentId', (req, res) => {
-    console.log(req.params.commentId);
     desires = desires.filter((desire) => {
         if(desire.id === +req.params.id) {
-            console.log('yes');
             desire.comments = desire.comments.filter((comment) => {
-                console.log(comment.id);
-
                 return comment.id !== +req.params.commentId
             })
         }
 
         return desire
     });
-
-    // console.log(desires);
 
     res.sendStatus(204)
 });
